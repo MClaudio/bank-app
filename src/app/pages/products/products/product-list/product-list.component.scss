@@ -1,0 +1,137 @@
+.content-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.icon-button {
+  margin-right: 0.2em;
+  width: 5em !important;
+  height: 5em !important;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+
+  th,
+  td {
+    border-bottom: 1px solid #f5f5f5;
+    padding: 0.5em;
+    font-size: 0.9em;
+  }
+
+  th {
+    div {
+      display: flex;
+      padding: 0.5em;
+    }
+  }
+
+
+  thead {
+    background-color: var(--bg-color);
+  }
+
+}
+
+.size {
+  text-align: right !important;
+}
+
+.table-content {
+
+
+  /* width */
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: var(--bg-color);
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #C7CFE1;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #e9ecf3;
+  }
+}
+
+
+
+.dropbtn {
+  background-color: var(--white);
+  color: var(--back);
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(90deg);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  transform-origin: top right;
+}
+
+.dropdown-content {
+
+
+  a {
+    background-color: var(--white);
+    color: var(--back);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+      background-color: var(--blue-hv);
+    }
+  }
+}
+
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  transform: translateY(0);
+}
+
+/* Si la fila es la última, abre el menú hacia arriba */
+tr:last-child .dropdown:hover .dropdown-content {
+  transform: translateY(-138%);
+}
+
+
+.info-icon {
+  border-radius: 50%;
+  background-color: #C7CFE1;
+  height: 1.2em;
+  width: 1.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}

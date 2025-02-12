@@ -1,0 +1,38 @@
+.form-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  input, textarea{
+    border-radius: 3px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+button {
+  grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+  button {
+    grid-column: span 1;
+  }
+}
+
+
+
+.title {
+  text-align: center;
+  border-bottom: 1px solid var(--blue-hv);
+  padding-bottom: 1.5em;
+  font-size: 1.2em;
+}
