@@ -8,6 +8,7 @@ import { ProductService } from '../../../../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { ModalService } from '../../../../services/modal.service';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-product-view',
@@ -23,7 +24,8 @@ export class ProductViewComponent implements OnInit {
     private _fb: FormBuilder,
     private _productService: ProductService,
     private _route: ActivatedRoute,
-    private _modalService: ModalService
+    private _modalService: ModalService,
+    private _loaderService: LoaderService
   ) {
     let params: any = this._route.snapshot.params;
     this._id = params.id;
@@ -44,14 +46,16 @@ export class ProductViewComponent implements OnInit {
    */
   public async loadProduct() {
     try {
+      this._loaderService.showLoader();
       let resp = await firstValueFrom(
         this._productService.getProduct(this._id)
       );
       this.createForm();
       this.form.patchValue(resp);
+      this._loaderService.offLoader();
     } catch (error: any) {
+      this._loaderService.offLoader();
       window.history.back();
-      console.log(error);
       this._modalService.openModal(
         'error',
         'Error',

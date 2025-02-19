@@ -3,7 +3,12 @@
 <div>
   <app-menu></app-menu>
 </div>
- 
+
 <div class="container">
+
+  <div *ngIf="loader" class="loader-container">
+    <app-loader></app-loader>
+  </div>
+
   <router-outlet />
 </div>

@@ -1,11 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ProductsComponent } from './products.component';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ComponentsModule } from './components/components.module';
 import { FormsModule } from '@angular/forms';
+import { TooltipComponent } from '../../shared/tooltip/tooltip.component';
 
 describe('ProductsComponent', () => {
   let component: ProductsComponent;
@@ -18,7 +17,7 @@ describe('ProductsComponent', () => {
         ProductsRoutingModule,
         ComponentsModule,
         FormsModule,
-        LoaderComponent,
+        TooltipComponent,
       ],
       declarations: [ProductsComponent],
     }).compileComponents();

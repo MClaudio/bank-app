@@ -4,6 +4,7 @@ import { ProductService } from '../../../../services/product.service';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { NotificationService } from '../../../../services/notification.service';
 import { ModalService } from '../../../../services/modal.service';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-product-list',
@@ -13,7 +14,6 @@ import { ModalService } from '../../../../services/modal.service';
 export class ProductListComponent implements OnInit, OnDestroy {
   public products: Product[] = [];
   private _products: Product[] = [];
-  public loader: boolean = false;
   private _subscription?: Subscription;
   public search: string = '';
   public size: number = 5;
@@ -21,7 +21,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   constructor(
     private _productService: ProductService,
     private _notificationService: NotificationService,
-    private _modalService: ModalService
+    private _modalService: ModalService,
+    private _loaderService: LoaderService
   ) {}
 
   ngOnInit(): void {
@@ -40,16 +41,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
    */
   private async loadProducts() {
     try {
-      this.loader = true;
+      this._loaderService.showLoader();
       let resp: Product[] = await firstValueFrom(
         this._productService.getProducts()
       );
       this._products = resp;
       this.products = this._products.slice(0, this.size);
-      this.loader = false;
+      this._loaderService.offLoader();
     } catch (error: any) {
-      this.loader = false;
-      console.log(error);
+      this._loaderService.offLoader();
       this._modalService.openModal(
         'error',
         'Error',
@@ -88,7 +88,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
         }
       );
     } catch (error: any) {
-      console.log(error);
       this._modalService.openModal(
         'error',
         'Error',

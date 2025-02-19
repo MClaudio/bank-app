@@ -7,6 +7,8 @@ import { of, throwError } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormProductComponent } from '../../components/form-product/form-product.component';
+import { TooltipComponent } from '../../../../shared/tooltip/tooltip.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -36,6 +38,7 @@ describe('ProductComponent', () => {
           },
         },
       ],
+
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProductComponent);

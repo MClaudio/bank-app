@@ -4,34 +4,31 @@
   <a [routerLink]="['new']" class="p-1">Agregar</a>
 </div>
 
-<ng-container *ngIf="loader; else elseLoaderTemplate">
-  <div class="loader-container">
-    <app-loader></app-loader>
-  </div>
-</ng-container>
-<ng-template #elseLoaderTemplate>
+
   <div class="mt-2 wf table-content" style="overflow-x: scroll">
     <table class="table wf">
       <thead>
         <tr>
-          <th><div>Logo</div></th>
           <th>
-           <div>
-            Nombre del producto <span class="info-icon">&#8505;</span>
-           </div>
+            <div>Logo</div>
           </th>
           <th>
             <div>
-              Descripcion <span class="info-icon">&#8505;</span>
+              Nombre del producto
             </div>
           </th>
           <th>
             <div>
-              Fecha de liberacón <span class="info-icon">&#8505;</span>
+              Descripción <app-tooltip [text]="'Descripción del producto'"></app-tooltip>
             </div>
           </th>
           <th>
-            <div>Fecha de reestauración <span class="info-icon">&#8505;</span></div>
+            <div>
+              Fecha de liberacón <app-tooltip [text]="'Fecha de liberación del producto'"></app-tooltip>
+            </div>
+          </th>
+          <th>
+            <div>Fecha de reestauración <app-tooltip [text]="'Fecha de reestauración del producto'"></app-tooltip></div>
           </th>
           <th></th>
         </tr>
@@ -46,17 +43,6 @@
           <td>{{ product.date_release | date : "M/d/yyyy" }}</td>
           <td>{{ product.date_revision | date : "M/d/yyyy" }}</td>
           <td>
-            <!-- <a class="icon-button" [routerLink]="['view', product.id]" title="View">&#9732;</a>
-            <a class="icon-button" [routerLink]="['edit', product.id]" title="Edit">&#9998;</a>
-            <a class="icon-button" (click)="deleteProduct(product)" title="delete">&#10006;</a> -->
-            <!-- <div class="menu-container">
-              <span class="icon">•••</span>
-              <ul class="dropdown-menu">
-                <li><a href="#">Vista</a></li>
-                <li><a href="#">Editar</a></li>
-                <li><a href="#">Eliminar</a></li>
-              </ul>
-            </div> -->
             <div class="dropdown" style="float:right;">
               <button class="dropbtn">•••</button>
               <div class="dropdown-content">
@@ -88,4 +74,4 @@
       </tfoot>
     </table>
   </div>
-</ng-template>
+

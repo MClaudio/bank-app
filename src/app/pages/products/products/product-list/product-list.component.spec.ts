@@ -9,6 +9,7 @@ import { ModalService } from '../../../../services/modal.service';
 import { of, throwError } from 'rxjs';
 import { Product } from '../../../../core/interfaces/product';
 import { LoaderComponent } from '../../../../shared/loader/loader.component';
+import { TooltipComponent } from '../../../../shared/tooltip/tooltip.component';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
@@ -46,7 +47,7 @@ describe('ProductListComponent', () => {
         HttpClientTestingModule,
         FormsModule,
         RouterTestingModule,
-        LoaderComponent,
+        TooltipComponent,
       ],
       providers: [
         { provide: ProductService, useValue: productServiceMock },
@@ -72,7 +73,6 @@ describe('ProductListComponent', () => {
       productServiceMock.getProducts.and.returnValue(of(mockProducts));
       await component.ngOnInit();
       expect(component.products).toEqual(mockProducts.slice(0, component.size));
-      expect(component.loader).toBeFalse();
     });
     it('should handle error when loading products', async () => {
       const errorResponse = { message: 'Error loading products' };
@@ -81,7 +81,6 @@ describe('ProductListComponent', () => {
       );
       modalServiceMock.openModal.and.stub();
       await component.ngOnInit();
-      expect(component.loader).toBeFalse();
       expect(modalServiceMock.openModal).toHaveBeenCalledWith(
         'error',
         'Error',
@@ -235,7 +234,9 @@ describe('ProductListComponent', () => {
 
   describe('get length', () => {
     it('should return the length of products', () => {
-      component.products = [{ id: '1', name: 'Product 1', description: 'Description A' }];
+      component.products = [
+        { id: '1', name: 'Product 1', description: 'Description A' },
+      ];
       expect(component.length).toBe(1);
     });
   });

@@ -5,6 +5,7 @@ import { NotificationComponent } from './shared/notification/notification.compon
 import { MenuComponent } from './shared/menu/menu.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { LoaderComponent } from './shared/loader/loader.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -14,6 +15,7 @@ describe('AppComponent', () => {
         MenuComponent,
         ModalComponent,
         RouterModule.forRoot([]),
+        LoaderComponent
       ],
       declarations: [AppComponent],
       providers: [provideHttpClientTesting],

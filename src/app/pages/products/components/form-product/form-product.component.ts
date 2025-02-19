@@ -109,7 +109,6 @@ export class FormProductComponent {
       }
       this._router.navigate(['/product']);
     } catch (error: any) {
-      console.log(error);
       this._modalService.openModal(
         'error',
         'Error',

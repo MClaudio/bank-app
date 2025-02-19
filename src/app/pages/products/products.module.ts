@@ -9,8 +9,8 @@ import { ComponentsModule } from './components/components.module';
 import { ProductEditComponent } from './products/product/product-edit.component';
 import { ProductViewComponent } from './products/product/product-view.component';
 import { FormsModule } from '@angular/forms';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { RouterModule } from '@angular/router';
+import { TooltipComponent } from '../../shared/tooltip/tooltip.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +25,8 @@ import { RouterModule } from '@angular/router';
     ProductsRoutingModule,
     ComponentsModule,
     FormsModule,
-    LoaderComponent,
-    RouterModule
+    RouterModule,
+    TooltipComponent,
   ],
 })
 export class ProductsModule {}
