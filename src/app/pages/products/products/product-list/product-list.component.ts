@@ -40,22 +40,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
    * @returns
    */
   private async loadProducts() {
-    try {
-      this._loaderService.showLoader();
-      let resp: Product[] = await firstValueFrom(
-        this._productService.getProducts()
-      );
-      this._products = resp;
-      this.products = this._products.slice(0, this.size);
-      this._loaderService.offLoader();
-    } catch (error: any) {
-      this._loaderService.offLoader();
-      this._modalService.openModal(
-        'error',
-        'Error',
-        error?.error?.message || error?.message || JSON.parse(error)
-      );
-    }
+    this._loaderService.showLoader();
+    let resp: Product[] = await firstValueFrom(
+      this._productService.getProducts()
+    );
+    this._products = resp;
+    this.products = this._products.slice(0, this.size);
+    this._loaderService.offLoader();
   }
 
   /**
@@ -66,34 +57,26 @@ export class ProductListComponent implements OnInit, OnDestroy {
    * @returns
    */
   public async deleteProduct(product: Product) {
-    try {
-      this._modalService.openModal(
-        'error',
-        '',
-        '¿Estas seguro de eliminar el producto ' + product.name + '?',
-        true
-      );
+    this._modalService.openModal(
+      'error',
+      '',
+      '¿Estas seguro de eliminar el producto ' + product.name + '?',
+      true
+    );
 
-      this._subscription = this._modalService.eventOnOk.subscribe(
-        async (isOk: boolean) => {
-          if (isOk) {
-            let resp = await firstValueFrom(
-              this._productService.deleteProduct(product.id as string)
-            );
-            this._notificationService.showSuccess('Producto eliminado');
-            this.products = this.products.filter(
-              (item: Product) => item.id !== product.id
-            );
-          }
+    this._subscription = this._modalService.eventOnOk.subscribe(
+      async (isOk: boolean) => {
+        if (isOk) {
+          let resp = await firstValueFrom(
+            this._productService.deleteProduct(product.id as string)
+          );
+          this._notificationService.showSuccess('Producto eliminado');
+          this.products = this.products.filter(
+            (item: Product) => item.id !== product.id
+          );
         }
-      );
-    } catch (error: any) {
-      this._modalService.openModal(
-        'error',
-        'Error',
-        error?.error?.message || error?.message || JSON.parse(error)
-      );
-    }
+      }
+    );
   }
 
   public get length() {

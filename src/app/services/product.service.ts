@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { Product } from '../core/interfaces/product';
 import { environment } from '../../environments/environment';
+import { GlobalErrorHandler } from './global-error-handler.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,10 @@ export class ProductService {
   public getProducts(): Observable<Product[]> {
     return this._http
       .get<Product[]>(`${this._api}/products`)
-      .pipe(map((response: any) => response.data));
+      .pipe(
+        map((response: any) => response.data),
+        //catchError((error: HttpErrorResponse) => this.handleError(error))
+      );
   }
 
   /**

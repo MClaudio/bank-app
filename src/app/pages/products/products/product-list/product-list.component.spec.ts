@@ -74,19 +74,6 @@ describe('ProductListComponent', () => {
       await component.ngOnInit();
       expect(component.products).toEqual(mockProducts.slice(0, component.size));
     });
-    it('should handle error when loading products', async () => {
-      const errorResponse = { message: 'Error loading products' };
-      productServiceMock.getProducts.and.returnValue(
-        throwError(() => errorResponse)
-      );
-      modalServiceMock.openModal.and.stub();
-      await component.ngOnInit();
-      expect(modalServiceMock.openModal).toHaveBeenCalledWith(
-        'error',
-        'Error',
-        errorResponse.message
-      );
-    });
   });
 
   describe('deleteProduct', () => {

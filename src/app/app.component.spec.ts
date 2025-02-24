@@ -6,6 +6,8 @@ import { MenuComponent } from './shared/menu/menu.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { ErrorHandler } from '@angular/core';
+import { GlobalErrorHandler } from './services/global-error-handler.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -15,10 +17,13 @@ describe('AppComponent', () => {
         MenuComponent,
         ModalComponent,
         RouterModule.forRoot([]),
-        LoaderComponent
+        LoaderComponent,
       ],
       declarations: [AppComponent],
-      providers: [provideHttpClientTesting],
+      providers: [
+        provideHttpClientTesting,
+        { provide: ErrorHandler, useClass: GlobalErrorHandler },
+      ],
     }).compileComponents();
   });
 

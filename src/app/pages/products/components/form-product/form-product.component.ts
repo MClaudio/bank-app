@@ -88,49 +88,33 @@ export class FormProductComponent {
   public async onSaveForm() {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
-    try {
-      let data: Product = {
-        ...this.form.getRawValue(),
-        date_release: new Date(this.form.get('date_release')?.value)
-          .toISOString()
-          .split('T')[0],
-        date_revision: new Date(this.form.get('date_revision')?.value)
-          .toISOString()
-          .split('T')[0],
-      };
-      if (this.acction === 'new') {
-        await this.createProduct(data);
-        this._notificationService.showSuccess('Producto creado exitosamente');
-      } else {
-        await this.updateProduct(data);
-        this._notificationService.showSuccess(
-          'Producto actualizado exitosamente'
-        );
-      }
-      this._router.navigate(['/product']);
-    } catch (error: any) {
-      this._modalService.openModal(
-        'error',
-        'Error',
-        error?.error?.message || error?.message || JSON.parse(error)
+    let data: Product = {
+      ...this.form.getRawValue(),
+      date_release: new Date(this.form.get('date_release')?.value)
+        .toISOString()
+        .split('T')[0],
+      date_revision: new Date(this.form.get('date_revision')?.value)
+        .toISOString()
+        .split('T')[0],
+    };
+    if (this.acction === 'new') {
+      await this.createProduct(data);
+      this._notificationService.showSuccess('Producto creado exitosamente');
+    } else {
+      await this.updateProduct(data);
+      this._notificationService.showSuccess(
+        'Producto actualizado exitosamente'
       );
     }
+    this._router.navigate(['/product']);
   }
 
   private async createProduct(data: Product) {
-    try {
-      let resp = await firstValueFrom(this._productService.createProduct(data));
-    } catch (error) {
-      throw error;
-    }
+    let resp = await firstValueFrom(this._productService.createProduct(data));
   }
 
   private async updateProduct(data: Product) {
-    try {
-      let resp = await firstValueFrom(this._productService.updateProduct(data));
-    } catch (error) {
-      throw error;
-    }
+    let resp = await firstValueFrom(this._productService.updateProduct(data));
   }
 
   /**

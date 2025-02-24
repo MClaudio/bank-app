@@ -45,23 +45,11 @@ export class ProductViewComponent implements OnInit {
    * @returns
    */
   public async loadProduct() {
-    try {
-      this._loaderService.showLoader();
-      let resp = await firstValueFrom(
-        this._productService.getProduct(this._id)
-      );
-      this.createForm();
-      this.form.patchValue(resp);
-      this._loaderService.offLoader();
-    } catch (error: any) {
-      this._loaderService.offLoader();
-      window.history.back();
-      this._modalService.openModal(
-        'error',
-        'Error',
-        error?.error?.message || error?.message || JSON.parse(error)
-      );
-    }
+    this._loaderService.showLoader();
+    let resp = await firstValueFrom(this._productService.getProduct(this._id));
+    this.createForm();
+    this.form.patchValue(resp);
+    this._loaderService.offLoader();
   }
 
   /**

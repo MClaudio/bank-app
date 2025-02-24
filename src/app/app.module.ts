@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,6 +7,7 @@ import { NotificationComponent } from './shared/notification/notification.compon
 import { ModalComponent } from './shared/modal/modal.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { GlobalErrorHandler } from './services/global-error-handler.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,10 @@ import { LoaderComponent } from './shared/loader/loader.component';
     MenuComponent,
     LoaderComponent,
   ],
-  providers: [provideHttpClient()],
+  providers: [
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    provideHttpClient(),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
