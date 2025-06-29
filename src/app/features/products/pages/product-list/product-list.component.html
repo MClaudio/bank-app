@@ -1,0 +1,209 @@
+<div class="d-flex-align-center">
+  <div class="control mr-2 mb-0">
+    <input (change)="onSearch()" [(ngModel)]="search" type="search" name="search" id="search" placeholder="Buscar..."
+      aria-label="Buscar producto" />
+  </div>
+
+  <!-- <a [routerLink]="['new']" class="p-1" role="button" tabindex="0">Agregar</a> -->
+  <button [routerLink]="['new']" class="btn btn--primary" aria-label="Agregar un nuevo producto">Agregar</button>
+</div>
+
+
+<!-- <div class="mt-2 wf table-content" style="overflow-x: scroll">
+  <table class="table wf">
+    <thead>
+      <tr>
+        <th>
+          <div>Logo</div>
+        </th>
+        <th>
+          <div>
+            Nombre del producto
+          </div>
+        </th>
+        <th>
+          <div>
+            Descripción <app-tooltip [text]="'Descripción del producto'"></app-tooltip>
+          </div>
+        </th>
+        <th>
+          <div>
+            Fecha de liberacón <app-tooltip [text]="'Fecha de liberación del producto'"></app-tooltip>
+          </div>
+        </th>
+        <th>
+          <div>Fecha de reestauración <app-tooltip [text]="'Fecha de reestauración del producto'"></app-tooltip></div>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>
+          <img [src]="product.logo" [alt]="product.name" width="100" />
+        </td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.date_release | date : "M/d/yyyy" }}</td>
+        <td>{{ product.date_revision | date : "M/d/yyyy" }}</td>
+        <td *ngIf="product.id">
+          <div class="dropdown" style="float:right;">
+            <button class="dropbtn" type="button" [attr.aria-expanded]="dropdownStates[product.id] || false"
+              [attr.aria-haspopup]="true" [attr.aria-controls]="'dropdown-menu-' + product.id"
+              [attr.aria-label]="'Opciones para ' + product.name" (click)="toggleDropdown(product.id)"
+              (keydown)="onDropdownKeydown($event, product.id)">
+              •••
+            </button>
+            <div class="dropdown-content" [class.show]="dropdownStates[product.id]" role="menu"
+              [attr.id]="'dropdown-menu-' + product.id" [attr.aria-labelledby]="'dropdown-button-' + product.id">
+              <a [routerLink]="['view', product.id]" role="menuitem" tabindex="0"
+                (keydown)="onMenuItemKeydown($event, 0, product.id)"
+                [attr.aria-label]="'Ver detalles de ' + product.name">
+                Vista
+              </a>
+              <a [routerLink]="['edit', product.id]" role="menuitem" tabindex="0"
+                (keydown)="onMenuItemKeydown($event, 1, product.id)" [attr.aria-label]="'Editar ' + product.name">
+                Editar
+              </a>
+              <a (click)="deleteProduct(product)" role="menuitem" tabindex="0"
+                (keydown)="onMenuItemKeydown($event, 2, product.id)" [attr.aria-label]="'Eliminar ' + product.name">
+                Eliminar
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr *ngIf="length === 0">
+        <td colspan="7">
+          <span> No se encontraron productos </span>
+        </td>
+      </tr>
+      <tr>
+        <td>{{ length }} Resultados</td>
+        <td class="size" colspan="6">
+          <select (change)="onChangeSize()" [(ngModel)]="size" id="size" name="size" aria-label="Tamaño de página">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div> -->
+
+<div class="table__content u-mt-2 u-w-full">
+  <table class="table u-w-full">
+    <thead class="table__header">
+      <tr>
+        <th class="table__header-cell">
+          <div>Logo</div>
+        </th>
+        <th class="table__header-cell">
+          <div>
+            Nombre del producto
+          </div>
+        </th>
+        <th class="table__header-cell">
+          <div>
+            Descripción <app-tooltip [text]="'Descripción del producto'"></app-tooltip>
+          </div>
+        </th>
+        <th class="table__header-cell">
+          <div>
+            Fecha de liberacón <app-tooltip [text]="'Fecha de liberación del producto'"></app-tooltip>
+          </div>
+        </th>
+        <th class="table__header-cell">
+          <div>Fecha de reestauración <app-tooltip [text]="'Fecha de reestauración del producto'"></app-tooltip></div>
+        </th>
+        <th class="table__header-cell"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td class="table__cell">
+          <img [src]="product.logo" [alt]="product.name" width="100" />
+        </td>
+        <td class="table__cell">{{ product.name }}</td>
+        <td class="table__cell">{{ product.description }}</td>
+        <td class="table__cell">{{ product.date_release | date : "M/d/yyyy" }}</td>
+        <td class="table__cell">{{ product.date_revision | date : "M/d/yyyy" }}</td>
+        <td class="table__cell" *ngIf="product.id">
+          <!-- <div class="dropdown" style="float:right;">
+            <button class="dropbtn" type="button" [attr.aria-expanded]="dropdownStates[product.id] || false"
+              [attr.aria-haspopup]="true" [attr.aria-controls]="'dropdown-menu-' + product.id"
+              [attr.aria-label]="'Opciones para ' + product.name" (click)="toggleDropdown(product.id)"
+              (keydown)="onDropdownKeydown($event, product.id)">
+              •••
+            </button>
+            <div class="dropdown-content" [class.show]="dropdownStates[product.id]" role="menu"
+              [attr.id]="'dropdown-menu-' + product.id" [attr.aria-labelledby]="'dropdown-button-' + product.id">
+              <a [routerLink]="['view', product.id]" role="menuitem" tabindex="0"
+                (keydown)="onMenuItemKeydown($event, 0, product.id)"
+                [attr.aria-label]="'Ver detalles de ' + product.name">
+                Vista
+              </a>
+              <a [routerLink]="['edit', product.id]" role="menuitem" tabindex="0"
+                (keydown)="onMenuItemKeydown($event, 1, product.id)" [attr.aria-label]="'Editar ' + product.name">
+                Editar
+              </a>
+              <a (click)="deleteProduct(product)" role="menuitem" tabindex="0"
+                (keydown)="onMenuItemKeydown($event, 2, product.id)" [attr.aria-label]="'Eliminar ' + product.name">
+                Eliminar
+              </a>
+            </div>
+          </div> -->
+
+          <div class="float-btn__container">
+            <button class="float-btn__button" type="button" [attr.aria-expanded]="dropdownStates[product.id] || false"
+              [attr.aria-haspopup]="true" [attr.aria-controls]="'dropdown-menu-' + product.id"
+              [attr.aria-label]="'Opciones para ' + product.name" (click)="toggleDropdown(product.id)"
+              (keydown)="onDropdownKeydown($event, product.id)">
+              •••
+            </button>
+            <div class="float-btn__menu" [ngClass]="{'float-btn__menu--show': dropdownStates[product.id]}" role="menu"
+              [attr.id]="'dropdown-menu-' + product.id" [attr.aria-labelledby]="'dropdown-button-' + product.id">
+              <a class="float-btn__menu-item" [routerLink]="['view', product.id]" role="menuitem" tabindex="0"
+                (keydown)="onMenuItemKeydown($event, 0, product.id)"
+                [attr.aria-label]="'Ver detalles de ' + product.name">
+                Vista
+              </a>
+              <a class="float-btn__menu-item" [routerLink]="['edit', product.id]" role="menuitem" tabindex="0"
+                (keydown)="onMenuItemKeydown($event, 1, product.id)" [attr.aria-label]="'Editar ' + product.name">
+                Editar
+              </a>
+              <a class="float-btn__menu-item" (click)="deleteProduct(product)" role="menuitem" tabindex="0"
+                (keydown)="onMenuItemKeydown($event, 2, product.id)" [attr.aria-label]="'Eliminar ' + product.name">
+                Eliminar
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr *ngIf="length === 0">
+        <td class="table__cell" colspan="7">
+          <span> No se encontraron productos </span>
+        </td>
+      </tr>
+      <tr>
+        <td class="table__cell">{{ length }} Resultados</td>
+        <td class="table__cell table__cell--size" colspan="6">
+          <div class="select-wrapper">
+            <div class="control">
+              <select (change)="onChangeSize()" [(ngModel)]="size" id="size" name="size" aria-label="Tamaño de página">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

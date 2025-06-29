@@ -1,0 +1,12 @@
+.container {
+  margin: var(--spacing-md) var(--spacing-container);
+
+  @media screen and (max-width: $breakpoint-mobile) {
+    margin: var(--spacing-md) var(--spacing-container-mobile);
+  }
+
+  &--app {
+    padding: var(--spacing-md);
+    background-color: var(--white);
+  }
+}

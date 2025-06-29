@@ -1,0 +1,92 @@
+
+
+<div class="u-mt-2">
+  <form [formGroup]="form">
+    <div class="form__content">
+
+      <div class="control" [ngClass]="{'control--invalid': getErrorRequired('id') || getErrorMin('id') || getErrorMax('id') || getErrorIdValidate('id')}">
+        <label for="id">ID <span aria-hidden="true" *ngIf="isFieldRequired('id')">*</span></label>
+        <input type="text" formControlName="id" id="id"
+          [attr.aria-describedby]="(getErrorRequired('id') || getErrorMin('id') || getErrorMax('id') || getErrorIdValidate('id')) ? 'id-error' : null"
+          [attr.aria-required]="isFieldRequired('id')"
+          [attr.aria-invalid]="getErrorRequired('id') || getErrorMin('id') || getErrorMax('id') || getErrorIdValidate('id') ? 'true' : 'false'" />
+        <span id="id-error" role="alert" *ngIf="getErrorRequired('id') || getErrorMin('id') || getErrorMax('id') || getErrorIdValidate('id')">
+          <ng-container *ngIf="getErrorRequired('id')">ID no válido!<br /></ng-container>
+          <ng-container *ngIf="getErrorMin('id')">El ID debe tener al menos 3 caracteres!<br /></ng-container>
+          <ng-container *ngIf="getErrorMax('id')">El ID debe tener como máximo 10 caracteres!<br /></ng-container>
+          <ng-container *ngIf="getErrorIdValidate('id')">Esta id ya existe</ng-container>
+        </span>
+      </div>
+
+      <div class="control" [ngClass]="{'control--invalid': getErrorRequired('name') || getErrorMin('name') || getErrorMax('name')}">
+        <label for="name">Nombre <span aria-hidden="true" *ngIf="isFieldRequired('name')">*</span></label>
+        <input type="text" formControlName="name" id="name"
+          [attr.aria-describedby]="(getErrorRequired('name') || getErrorMin('name') || getErrorMax('name')) ? 'name-error' : null"
+          [attr.aria-required]="isFieldRequired('name')"
+          [attr.aria-invalid]="getErrorRequired('name') || getErrorMin('name') || getErrorMax('name') ? 'true' : 'false'" />
+        <span id="name-error" role="alert" *ngIf="getErrorRequired('name') || getErrorMin('name') || getErrorMax('name')">
+          <ng-container *ngIf="getErrorRequired('name')">Este campo es requerido!<br /></ng-container>
+          <ng-container *ngIf="getErrorMin('name')">El nombre debe tener al menos 5 caracteres!<br /></ng-container>
+          <ng-container *ngIf="getErrorMax('name')">El nombre debe tener como máximo 100 caracteres.!<br /></ng-container>
+        </span>
+      </div>
+
+      <div class="control" [ngClass]="{'control--invalid': getErrorRequired('description') || getErrorMin('description') || getErrorMax('description')}">
+        <label for="description">Descripción <span aria-hidden="true" *ngIf="isFieldRequired('description')">*</span></label>
+        <textarea formControlName="description" id="description"
+          [attr.aria-describedby]="(getErrorRequired('description') || getErrorMin('description') || getErrorMax('description')) ? 'description-error' : null"
+          [attr.aria-required]="isFieldRequired('description')"
+          [attr.aria-invalid]="getErrorRequired('description') || getErrorMin('description') || getErrorMax('description') ? 'true' : 'false'"></textarea>
+        <span id="description-error" role="alert" *ngIf="getErrorRequired('description') || getErrorMin('description') || getErrorMax('description')">
+          <ng-container *ngIf="getErrorRequired('description')">Este campo es requerido!<br /></ng-container>
+          <ng-container *ngIf="getErrorMin('description')">La descripción debe tener al menos 10 caracteres!<br /></ng-container>
+          <ng-container *ngIf="getErrorMax('description')">La descripción debe tener como máximo 200 caracteres!<br /></ng-container>
+        </span>
+      </div>
+
+      <div class="control" [ngClass]="{'control--invalid': getErrorRequired('logo') || getErrorUrl('logo')}">
+        <label for="logo">Logo <span aria-hidden="true" *ngIf="isFieldRequired('logo')">*</span></label>
+        <input type="text" formControlName="logo" id="logo"
+          [attr.aria-describedby]="(getErrorRequired('logo') || getErrorUrl('logo')) ? 'logo-error' : null"
+          [attr.aria-required]="isFieldRequired('logo')"
+          [attr.aria-invalid]="getErrorRequired('logo') || getErrorUrl('logo') ? 'true' : 'false'" />
+        <span id="logo-error" role="alert" *ngIf="getErrorRequired('logo') || getErrorUrl('logo')">
+          <ng-container *ngIf="getErrorRequired('logo')">Este campo es requerido!<br /></ng-container>
+          <ng-container *ngIf="getErrorUrl('logo')">El logotipo debe ser una URL válida!<br /></ng-container>
+        </span>
+      </div>
+
+      <div class="control" [ngClass]="{'control--invalid': getErrorRequired('date_release') || getErrorMinDate('date_release')}">
+        <label for="date_release">Fecha Liberación <span aria-hidden="true" *ngIf="isFieldRequired('date_release')">*</span></label>
+        <input (change)="onChangeDate()" type="date" formControlName="date_release" id="date_release"
+          [attr.aria-describedby]="(getErrorRequired('date_release') || getErrorMinDate('date_release')) ? 'date_release-error' : null"
+          [attr.aria-required]="isFieldRequired('date_release')"
+          [attr.aria-invalid]="getErrorRequired('date_release') || getErrorMinDate('date_release') ? 'true' : 'false'" />
+        <span id="date_release-error" role="alert" *ngIf="getErrorRequired('date_release') || getErrorMinDate('date_release')">
+          <ng-container *ngIf="getErrorRequired('date_release')">Este campo es requerido!<br /></ng-container>
+          <ng-container *ngIf="getErrorMinDate('date_release')">La fecha debe ser igual o mayor que la fecha actual!<br /></ng-container>
+        </span>
+      </div>
+
+      <div class="control" [ngClass]="{'control--invalid': getErrorRequired('date_revision')}">
+        <label for="date_revision">Fecha Revisión <span aria-hidden="true" *ngIf="isFieldRequired('date_revision')">*</span></label>
+        <input type="date" formControlName="date_revision" id="date_revision"
+          [attr.aria-describedby]="getErrorRequired('date_revision') ? 'date_revision-error' : null"
+          [attr.aria-required]="isFieldRequired('date_revision')"
+          [attr.aria-invalid]="getErrorRequired('date_revision') ? 'true' : 'false'" />
+        <span id="date_revision-error" role="alert" *ngIf="getErrorRequired('date_revision')">
+          Este campo es requerido!
+        </span>
+      </div>
+    </div>
+
+    <div class="form__button-container">
+      <button class="btn btn--secondary form__button" *ngIf="acction != 'view'" (click)="onResetForm()" type="button">
+        Reiniciar
+      </button>
+      <button class="btn btn--primary form__button" *ngIf="acction != 'view'" (click)="onSaveForm()" type="button">
+        Enviar
+      </button>
+    </div>
+  </form>
+</div>

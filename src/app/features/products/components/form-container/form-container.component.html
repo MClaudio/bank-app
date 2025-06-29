@@ -1,0 +1,12 @@
+<button [routerLink]="[ '/product']" class="btn btn--primary">← Volver a Productos</button>
+
+
+<div class="form__title u-mt-1">
+  <h2>{{title}}</h2>
+  <!-- <h2 *ngIf="acction === 'new'">Formulario de Registro</h2>
+  <h2 *ngIf="acction === 'edit'">Editar producto {{form.get('id')?.value}}</h2>
+  <h2 *ngIf="acction === 'view'">Vista de producto {{form.get('id')?.value}}</h2> -->
+</div>
+
+<app-form-product *ngIf="form" [form]="form" [acction]="acction" (submit)="onFormSubmit($event)"
+  (reset)="onFormReset()"></app-form-product>

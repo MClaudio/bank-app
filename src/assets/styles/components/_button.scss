@@ -1,0 +1,28 @@
+.btn {
+  padding: 1em;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+
+  &--primary {
+    background-color: var(--yellow);
+    color: var(--blue);
+    &:hover {
+      background-color: var(--yellow-hv);
+    }
+  }
+
+  &--secondary {
+    background: var(--blue-hv);
+    border: 1px solid var(--gray-400);
+    color: var(--blue);
+
+    &:hover {
+      background: var(--gray-600);
+      border: 1px solid var(--gray-700);
+    }
+  }
+}

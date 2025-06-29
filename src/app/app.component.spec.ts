@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { NotificationComponent } from './shared/notification/notification.component';
-import { MenuComponent } from './shared/menu/menu.component';
-import { ModalComponent } from './shared/modal/modal.component';
+import { NotificationComponent } from './shared/components/notification/notification.component';
+import { MenuComponent } from './layout/menu/menu.component';
+import { ModalComponent } from './shared/components/modal/modal.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { LoaderComponent } from './shared/loader/loader.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
 import { ErrorHandler } from '@angular/core';
-import { GlobalErrorHandler } from './services/global-error-handler.service';
+import { GlobalErrorHandler } from './core/services/global-error-handler.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

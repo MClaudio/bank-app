@@ -1,191 +1,195 @@
-/* You can add global styles to this file, and also import other style files */
-:root {
-  --yellow: #ffdd00;
-  --yellow-hv: #ffd100;
-  --white: #ffffff;
-  --back: #000;
-  --error-red: #EE9C9C;
-  --error-bg: #FBE6E6;
-  --red: red;
-  --bg-color: #f9fafc;
-  --blue: #0f265c;
-  --blue-hv: #E9ECF3;
-}
-
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-  background-color: var(--bg-color);
-}
-
-.invalid {
-  border: 1px solid var(--red);
-}
-
-.text-invalid {
-  color: var(--red);
-}
-
-.form-control {
-  display: flex;
-  flex-direction: column;
-
-  span {
-    font-size: 0.8em;
-  }
-}
-
-a {
-  cursor: pointer;
-  text-decoration: none;
-  background-color: var(--yellow);
-  padding: 0.5em;
-  color: var(--blue);
-  border-radius: 2px;
-
-  &:hover {
-    background-color: var(--yellow-hv);
-  }
-}
-
-.loader-container {
-  min-height: 25vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-input,
-textarea {
-  padding: 0.7em 0.5em;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.ml-1 {
-  margin-left: 1em;
-}
-
-.ml-2 {
-  margin-left: 2em;
-}
-
-.ml-3 {
-  margin-left: 3em;
-}
-
-.ml-4 {
-  margin-left: 4em;
-}
-
-.mr-1 {
-  margin-right: 1em;
-}
-
-.mr-2 {
-  margin-right: 2em;
-}
-
-.mr-3 {
-  margin-right: 3em;
-}
-
-.mr-4 {
-  margin-right: 4em;
-}
+@import './assets/styles/globals';
 
 
 
-.mt-1 {
-  margin-top: 1em;
-}
-
-.mt-2 {
-  margin-top: 2em;
-}
-
-.mt-3 {
-  margin-top: 3em;
-}
-
-.mt-4 {
-  margin-top: 4em;
-}
-
-.wf {
-  width: 100%;
-}
-
-.form-control {
-  width: 100%;
-  margin-bottom: 1em;
-}
-
-.container {
-  //width: 100%;
-  margin: 1em 10em;
-}
-
-@media screen and (max-width: 768px) {
-  .container {
-    margin: 1em 0.5em;
-  }
-}
-
-button {
-  padding: 1em;
-  border-radius: 2px;
-  border: none;
-  background-color: var(--yellow);
-  cursor: pointer;
-  color: var(--blue);
-
-  &:hover {
-    background-color: var(--yellow-hv);
-  }
-}
+// /* You can add global styles to this file, and also import other style files */
+// :root {
+//   --yellow: #ffdd00;
+//   --yellow-hv: #ffd100;
+//   --white: #ffffff;
+//   --back: #000;
+//   --error-red: #EE9C9C;
+//   --error-bg: #FBE6E6;
+//   --red: red;
+//   --bg-color: #f9fafc;
+//   --blue: #0f265c;
+//   --blue-hv: #E9ECF3;
+// }
 
 
-.btn-secundary {
-  background: var(--blue-hv);
-  border: 1px solid #dee3ed;
-  color: var(--blue);
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+//   font-family: Arial, Helvetica, sans-serif;
+// }
 
-  &:hover {
-    background: #C7CFE1;
-    border: 1px solid #BEC7DB;
-  }
-}
+// body {
+//   background-color: var(--bg-color);
+// }
 
-select {
-  padding: 0.5em;
-  border-radius: 5px;
-}
+// .invalid {
+//   border: 1px solid var(--red);
+// }
 
-.icon {
-  font-size: 3em;
-  text-align: center;
-  width: 100%;
-  display: inline-block;
-}
+// .text-invalid {
+//   color: var(--red);
+// }
 
-.p-1 {
-  padding: 0.8em;
-}
+// .form-control {
+//   display: flex;
+//   flex-direction: column;
 
-.loader-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--bg-color);
-  z-index: 10 !important;
-}
+//   span {
+//     font-size: 0.8em;
+//   }
+// }
+
+// a {
+//   cursor: pointer;
+//   text-decoration: none;
+//   background-color: var(--yellow);
+//   padding: 0.5em;
+//   color: var(--blue);
+//   border-radius: 2px;
+
+//   &:hover {
+//     background-color: var(--yellow-hv);
+//   }
+// }
+
+// .loader-container {
+//   min-height: 25vh;
+//   width: 100%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// input,
+// textarea {
+//   padding: 0.7em 0.5em;
+//   border-radius: 5px;
+//   border: 1px solid #ccc;
+// }
+
+// .ml-1 {
+//   margin-left: 1em;
+// }
+
+// .ml-2 {
+//   margin-left: 2em;
+// }
+
+// .ml-3 {
+//   margin-left: 3em;
+// }
+
+// .ml-4 {
+//   margin-left: 4em;
+// }
+
+// .mr-1 {
+//   margin-right: 1em;
+// }
+
+// .mr-2 {
+//   margin-right: 2em;
+// }
+
+// .mr-3 {
+//   margin-right: 3em;
+// }
+
+// .mr-4 {
+//   margin-right: 4em;
+// }
+
+
+
+// .mt-1 {
+//   margin-top: 1em;
+// }
+
+// .mt-2 {
+//   margin-top: 2em;
+// }
+
+// .mt-3 {
+//   margin-top: 3em;
+// }
+
+// .mt-4 {
+//   margin-top: 4em;
+// }
+
+// .wf {
+//   width: 100%;
+// }
+
+// .form-control {
+//   width: 100%;
+//   margin-bottom: 1em;
+// }
+
+// .container {
+//   //width: 100%;
+//   margin: 1em 10em;
+// }
+
+// @media screen and (max-width: 768px) {
+//   .container {
+//     margin: 1em 0.5em;
+//   }
+// }
+
+// button {
+//   padding: 1em;
+//   border-radius: 2px;
+//   border: none;
+//   background-color: var(--yellow);
+//   cursor: pointer;
+//   color: var(--blue);
+
+//   &:hover {
+//     background-color: var(--yellow-hv);
+//   }
+// }
+
+
+// .btn-secundary {
+//   background: var(--blue-hv);
+//   border: 1px solid #dee3ed;
+//   color: var(--blue);
+
+//   &:hover {
+//     background: #C7CFE1;
+//     border: 1px solid #BEC7DB;
+//   }
+// }
+
+// select {
+//   padding: 0.5em;
+//   border-radius: 5px;
+// }
+
+// .icon {
+//   font-size: 3em;
+//   text-align: center;
+//   width: 100%;
+//   display: inline-block;
+// }
+
+// .p-1 {
+//   padding: 0.8em;
+// }
+
+// .loader-container {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: var(--bg-color);
+//   z-index: 10 !important;
+// }

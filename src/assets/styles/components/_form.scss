@@ -1,0 +1,33 @@
+.form {
+
+  &__content {
+    display: grid;
+    grid-template-columns: var(--grid-columns-desktop);
+    gap: var(--grid-gap);
+
+    @media (max-width: $breakpoint-mobile) {
+      grid-template-columns: var(--grid-columns-mobile);
+    }
+  }
+
+  &__title {
+    text-align: center;
+    border-bottom: 1px solid var(--blue-hv);
+    padding-bottom: var(--spacing-lg);
+    font-size: var(--font-lg);
+  }
+
+  &__button {
+    grid-column: var(--grid-span-full);
+
+    @media (max-width: $breakpoint-mobile) {
+      grid-column: var(--grid-span-single);
+    }
+  }
+
+  &__button-container {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+  }
+}

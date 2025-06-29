@@ -1,0 +1,39 @@
+.control {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: var(--spacing-md);
+
+  input,
+  textarea,
+  select {
+    padding: 0.7em 0.5em;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--back);
+  }
+
+  span {
+    font-size: var(--font-xs);
+  }
+
+  &--invalid {
+    input,
+    textarea,
+    select {
+      border: 1px solid var(--red);
+    }
+
+    span {
+      color: var(--red);
+    }
+  }
+}
+
+// Legacy classes for backward compatibility
+.invalid {
+  border: 1px solid var(--red) !important;
+}
+
+.text-invalid {
+  color: var(--red);
+}

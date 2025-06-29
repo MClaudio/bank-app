@@ -4,8 +4,8 @@ import {
   validateMinDateFn,
   validateUrl,
 } from './formValidators';
-import { ProductService } from '../../services/product.service';
-import { Product } from '../interfaces/product';
+import { ProductService } from '../../features/products/services/product.service';
+import { Product } from '../../features/products/models/product';
 import { of, throwError } from 'rxjs';
 import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

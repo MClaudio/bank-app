@@ -1,0 +1,5 @@
+<div class="alert__container" *ngIf="show">
+  <div class="alert__toast" [ngStyle]="{'background-color': color}" role="alert" aria-live="assertive">
+    <p class="alert__text">{{message}}</p>
+  </div>
+</div>

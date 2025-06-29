@@ -1,0 +1,15 @@
+<div #modal role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-body" id="modal"
+  class="modal" [ngStyle]="{'display': show ? 'block' : 'none'}" (keydown)="onKeydown($event)">
+  <div class="modal__content">
+    <h3 *ngIf="title && title != ''" id="modal-title">{{title}}</h3>
+    <div class="modal__body u-mt-1" id="modal-body">
+      <p>{{body}}</p>
+    </div>
+    <div class="modal__footer u-mt-1">
+      <div class="modal__button-container">
+        <button #cancelButton (click)="show = false" class="btn btn--secondary" type="button">Cancelar</button>
+        <button *ngIf="isDecision" (click)="onOk()" class="btn btn--primary" type="button">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
