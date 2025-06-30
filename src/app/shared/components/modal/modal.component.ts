@@ -124,7 +124,6 @@ export class ModalComponent implements OnDestroy, DoCheck {
   }
 
   onKeydown(event: KeyboardEvent) {
-    console.log('Key pressed:', event.key);
     if (event.key === 'Escape') {
       this.show = false;
       return;

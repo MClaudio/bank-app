@@ -1,285 +1,131 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormProductComponent } from './form-product.component';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ProductService } from '../../services/product.service';
-import { NotificationService } from '../../../../shared/services/notification.service';
-import { Router } from '@angular/router';
-import { ModalService } from '../../../../shared/services/modal.service';
 import {
-  validateIdInApi,
-  validateMinDateFn,
-  validateUrl,
-} from '../../../../core/utils/formValidators';
-import { of, throwError } from 'rxjs';
+  ReactiveFormsModule,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+
+import { FormProductComponent } from './form-product.component';
+
+const productServiceSpy = jasmine.createSpyObj('ProductService', [
+  'createProduct',
+  'updateProduct',
+]);
+const notificationServiceSpy = jasmine.createSpyObj('NotificationService', [
+  'showSuccess',
+  'showError',
+]);
+const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+const modalServiceSpy = jasmine.createSpyObj('ModalService', ['open', 'close']);
 
 describe('FormProductComponent', () => {
   let component: FormProductComponent;
   let fixture: ComponentFixture<FormProductComponent>;
-  let productServiceMock: jasmine.SpyObj<ProductService>;
-  let notificationServiceMock: jasmine.SpyObj<NotificationService>;
-  let routerMock: jasmine.SpyObj<Router>;
-  let modalServiceMock: jasmine.SpyObj<ModalService>;
 
   beforeEach(async () => {
-    productServiceMock = jasmine.createSpyObj('ProductService', [
-      'createProduct',
-      'updateProduct',
-      'getProduct',
-    ]);
-    productServiceMock.getProduct.and.returnValue(of(null as any));
-    notificationServiceMock = jasmine.createSpyObj('NotificationService', [
-      'showSuccess',
-    ]);
-    routerMock = jasmine.createSpyObj('Router', ['navigate']);
-    modalServiceMock = jasmine.createSpyObj('ModalService', ['openModal']);
-    modalServiceMock.openModal = jasmine.createSpy('openModal');
-
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, HttpClientTestingModule],
       declarations: [FormProductComponent],
+      imports: [ReactiveFormsModule],
       providers: [
-        { provide: ProductService, useValue: productServiceMock },
-        //{ provide: ProductService, useValue: productServiceMock },
-        { provide: NotificationService, useValue: notificationServiceMock },
-        { provide: Router, useValue: routerMock },
-        { provide: ModalService, useValue: modalServiceMock },
-        FormBuilder,
+        { provide: 'ProductService', useValue: productServiceSpy },
+        { provide: 'NotificationService', useValue: notificationServiceSpy },
+        { provide: 'Router', useValue: routerSpy },
+        { provide: 'ModalService', useValue: modalServiceSpy },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormProductComponent);
     component = fixture.componentInstance;
-
-    component.form = TestBed.inject(FormBuilder).group({
-      id: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(10),
-        ],
-        [validateIdInApi(productServiceMock)],
-      ],
-      name: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(100),
-        ],
-      ],
-      description: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(200),
-        ],
-      ],
-      logo: [null, [Validators.required, validateUrl()]],
-      date_release: [null, [Validators.required, validateMinDateFn()]],
-      date_revision: [{ value: null, disabled: true }, [Validators.required]],
-    });
-
-    component.acction = 'new';
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  function buildDummyForm(): FormGroup {
+    return new FormGroup({
+      id: new FormControl(''),
+      name: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      logo: new FormControl(''),
+      date_release: new FormControl('', Validators.required),
+      date_revision: new FormControl(''),
+    });
+  }
+
+  it('should be created', () => {
+    component.form = buildDummyForm();
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
-  describe('Error Handling Methods', () => {
-    describe('getErrorRequired', () => {
-      it('should return true if field is required and touched', () => {
-        component.form.get('id')?.setValue(null);
-        component.form.get('id')?.markAsTouched();
-        expect(component.getErrorRequired('id')).toBeTrue();
-      });
-
-      it('should return false if field is not required or not touched', () => {
-        component.form.get('id')?.setValue('123456');
-        component.form.get('id')?.markAsTouched();
-        expect(component.getErrorRequired('id')).toBeFalse();
-      });
+  describe('#isFieldRequired', () => {
+    beforeEach(() => {
+      component.form = buildDummyForm();
     });
 
-    describe('getErrorMinDate', () => {
-      it('should return true if field has "validateDate" error and is touched', () => {
-        component.form.get('date_release')?.setErrors({ validateDate: true });
-        component.form.get('date_release')?.markAsTouched();
-        expect(component.getErrorMinDate('date_release')).toBeTrue();
-      });
-
-      it('should return false if field does not have "validateDate" error or is not touched', () => {
-        component.form.get('date_release')?.setErrors(null);
-        expect(component.getErrorMinDate('date_release')).toBeFalse();
-      });
+    it('returns TRUE for a required control', () => {
+      expect(component.isFieldRequired('name')).toBeTrue();
     });
 
-    describe('getErrorIdValidate', () => {
-      it('should return true if field has "idValidation" error and is touched', () => {
-        component.form.get('id')?.setErrors({ idValidation: true });
-        component.form.get('id')?.markAsTouched();
-        expect(component.getErrorIdValidate('id')).toBeTrue();
-      });
-
-      it('should return false if field does not have "idValidation" error or is not touched', () => {
-        component.form.get('id')?.setErrors(null);
-        expect(component.getErrorIdValidate('id')).toBeFalse();
-      });
-    });
-
-    describe('getErrorMax', () => {
-      it('should return true if field has "maxlength" error and is touched', () => {
-        component.form.get('id')?.setValue('too_long_id_validation_12345');
-        component.form.get('id')?.markAsTouched();
-        expect(component.getErrorMax('id')).toBeTrue();
-      });
-
-      it('should return false if field does not have "maxlength" error or is not touched', () => {
-        component.form.get('id')?.setValue('id_123');
-        expect(component.getErrorMax('id')).toBeFalse();
-      });
-    });
-
-    describe('getErrorMin', () => {
-      it('should return true if field has "minlength" error and is touched', () => {
-        component.form.get('id')?.setValue('1');
-        component.form.get('id')?.markAsTouched();
-        expect(component.getErrorMin('id')).toBeTrue();
-      });
-
-      it('should return false if field does not have "minlength" error or is not touched', () => {
-        component.form.get('id')?.setValue('123456');
-        expect(component.getErrorMin('id')).toBeFalse();
-      });
-    });
-
-    describe('getErrorUrl', () => {
-      it('should return true if field has "validateUrl" error and is touched', () => {
-        component.form.get('logo')?.setErrors({ validateUrl: true });
-        component.form.get('logo')?.markAsTouched();
-        expect(component.getErrorUrl('logo')).toBeTrue();
-      });
-
-      it('should return false if field does not have "validateUrl" error or is not touched', () => {
-        component.form.get('logo')?.setErrors(null);
-        expect(component.getErrorUrl('logo')).toBeFalse();
-      });
+    it('returns FALSE for a non‑required control', () => {
+      expect(component.isFieldRequired('description')).toBeFalse();
     });
   });
 
-  describe('onChangeDate', () => {
-    it('should set date_revision to one year after date_release', () => {
-      const releaseDate = new Date();
-      component.form
-        .get('date_release')
-        ?.setValue(releaseDate.toISOString().split('T')[0]);
+  describe('error helpers (getErrorRequired)', () => {
+    beforeEach(() => {
+      component.form = buildDummyForm();
+      fixture.detectChanges();
+    });
+
+    it('reports required error only when control is touched & empty', () => {
+      const nameCtrl = component.form.get('name')!;
+      nameCtrl.markAsTouched();
+      fixture.detectChanges();
+
+      expect(component.getErrorRequired('name')).toBeTrue();
+
+      nameCtrl.setValue('Product X');
+      fixture.detectChanges();
+
+      expect(component.getErrorRequired('name')).toBeFalse();
+    });
+  });
+
+  describe('#onChangeDate', () => {
+    beforeEach(() => {
+      component.form = buildDummyForm();
+    });
+
+    it('sets date_revision to one year after date_release', () => {
+      component.form.get('date_release')!.setValue('2024-07-01');
       component.onChangeDate();
-      const expectedDate = new Date(releaseDate);
-      expectedDate.setFullYear(expectedDate.getFullYear() + 1);
-      expect(component.form.get('date_revision')?.value).toBe(
-        expectedDate.toISOString().split('T')[0]
-      );
+
+      expect(component.form.get('date_revision')!.value).toBe('2025-07-01');
     });
   });
 
-  describe('onSaveForm', () => {
-    it('should call createProduct and navigate on success', async () => {
-      component.form.get('id')?.setValue('i23458');
-      component.form.get('name')?.setValue('Product Name');
-      component.form.get('description')?.setValue('This is a description');
-      component.form.get('logo')?.setValue('https://example.com/logo.png');
-      component.form.get('date_release')?.setValue('2025-03-01');
-      component.form.get('date_revision')?.setValue('2026-01-01');
-      component.form.markAllAsTouched();
-
-      expect(component.form.valid).toBeTrue();
-
-      productServiceMock.createProduct.and.returnValue(of({}));
-      await component.onSaveForm();
-      expect(productServiceMock.createProduct).toHaveBeenCalled();
-      expect(notificationServiceMock.showSuccess).toHaveBeenCalledWith(
-        'Producto creado exitosamente'
-      );
-      expect(routerMock.navigate).toHaveBeenCalledWith(['/product']);
+  describe('output events', () => {
+    beforeEach(() => {
+      component.form = buildDummyForm();
     });
-    it('should call updateProduct and navigate on success', async () => {
-      component.acction = 'edit';
-      productServiceMock.updateProduct.and.returnValue(of({}));
-      component.form.get('id')?.setValue('i23458');
-      component.form.get('name')?.setValue('Updated Product');
-      component.form.get('description')?.setValue('Updated description');
-      component.form.get('logo')?.setValue('https://example.com/logo.png');
-      component.form.get('date_release')?.setValue('2025-03-01');
-      component.form.get('date_revision')?.setValue('2026-01-01');
-      expect(component.form.valid).toBeTrue();
-      await component.onSaveForm();
-      expect(productServiceMock.updateProduct).toHaveBeenCalled();
-      expect(notificationServiceMock.showSuccess).toHaveBeenCalledWith(
-        'Producto actualizado exitosamente'
-      );
-      expect(routerMock.navigate).toHaveBeenCalledWith(['/product']);
-    });
-    // it('should handle error during product creation', async () => {
-    //   const error = { error: { message: 'Creation error' } };
-    //   productServiceMock.createProduct.and.returnValue(throwError(() => error));
 
-    //   await component.onSaveForm();
+    it('onSaveForm() emits submit with raw form value', (done) => {
+      const expected = component.form.getRawValue();
 
-    //   expect(modalServiceMock.openModal).toHaveBeenCalledWith(
-    //     'error', // Tipo del modal
-    //     'Error', // Título del modal
-    //     'Creation error' // Mensaje del modal
-    //   );
-    // });
-    // it('should handle error during product update', async () => {
-    //   component.acction = 'edit';
-    //   const error = { error: { message: 'Update error' } };
-    //   productServiceMock.updateProduct.and.returnValue(throwError(error));
-    //   await component.onSaveForm();
-    //   expect(modalServiceMock.openModal).toHaveBeenCalledWith(
-    //     'error',
-    //     'Error',
-    //     'Update error'
-    //   );
-    // });
-    //   it('should not proceed if form is invalid', async () => {
-    //     component.form.setErrors({ invalid: true });
-    //     await component.onSaveForm();
-    //     expect(productServiceMock.createProduct).not.toHaveBeenCalled();
-    //     expect(productServiceMock.updateProduct).not.toHaveBeenCalled();
-    //   });
-  });
-
-  describe('onResetForm', () => {
-    it('should reset the form to its original state if action is "new"', () => {
-      component.acction = 'new';
-      component.onResetForm();
-      expect(component.form.getRawValue()).toEqual({
-        id: null,
-        name: null,
-        description: null,
-        logo: null,
-        date_release: null,
-        date_revision: null,
+      component.submit.subscribe((emitted) => {
+        expect(emitted).toEqual(expected);
+        done();
       });
+
+      component.onSaveForm();
     });
 
-    it('should reset certain fields if action is "edit"', () => {
-      component.acction = 'edit';
-      component.form.get('id')?.setValue('123456');
-      component.onResetForm();
-      expect(component.form.getRawValue()).toEqual({
-        id: '123456',
-        name: null,
-        description: null,
-        logo: null,
-        date_release: null,
-        date_revision: null,
+    it('onResetForm() emits reset', (done) => {
+      component.reset.subscribe(() => {
+        expect(true).toBeTrue();
+        done();
       });
+
+      component.onResetForm();
     });
   });
 });

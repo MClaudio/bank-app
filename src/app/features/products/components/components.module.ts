@@ -4,10 +4,11 @@ import { FormProductComponent } from './form-product/form-product.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormContainerComponent } from './form-container/form-container.component';
 import { RouterLink } from '@angular/router';
+import { FloatButtonComponent } from './float-button/float-button.component';
 
 @NgModule({
-  declarations: [FormProductComponent, FormContainerComponent],
+  declarations: [FormProductComponent, FormContainerComponent, FloatButtonComponent],
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  exports: [FormProductComponent, FormContainerComponent],
+  exports: [FormContainerComponent, FloatButtonComponent],
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

@@ -1,12 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Product } from '../../models/product';
-import { ProductService } from '../../services/product.service';
-import { firstValueFrom } from 'rxjs';
-import { NotificationService } from '../../../../shared/services/notification.service';
-import { Router } from '@angular/router';
-import { ModalService } from '../../../../shared/services/modal.service';
-
 @Component({
   selector: 'app-form-product',
   templateUrl: './form-product.component.html',
@@ -20,10 +13,6 @@ export class FormProductComponent {
   @Output() reset = new EventEmitter<void>();
 
   constructor(
-    private _productService: ProductService,
-    private _notificationService: NotificationService,
-    private _router: Router,
-    private _modalService: ModalService
   ) { }
 
   public isFieldRequired(fieldName: string): boolean {

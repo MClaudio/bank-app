@@ -13,7 +13,6 @@ export class GlobalErrorHandler implements ErrorHandler {
   ) {}
 
   handleError(error: any): void {
-    //console.error('Error global:', error);
     this._loaderService.offLoader();
     if (error.message.includes('ExpressionChangedAfterItHasBeenCheckedError')) {
       return;

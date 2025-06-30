@@ -85,8 +85,6 @@ export class ProductEditComponent implements OnInit {
   }
 
   public async onSubmit() {
-    console.log('Form submitted:', this.form.getRawValue());
-
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
     let data: Product = {
