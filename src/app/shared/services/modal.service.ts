@@ -26,10 +26,6 @@ export class ModalService {
    * @returns
    */
   public openModal(
-    // type: string,
-    // title: string,
-    // body: string,
-    // isDecision: boolean = false
     options: ModalOptions
   ) {
     this._show = true;

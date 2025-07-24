@@ -40,25 +40,6 @@ export class NotificationService {
     return this._message;
   }
 
-  // private showNotification(options: NotificationOptions) {
-  //   if (this._show) {
-  //     return;
-  //   }
-  //   this._show = true;
-  //   this._color = this.getColor(options.type);
-  //   this._message = options.message;
-  //   setTimeout(() => {
-  //     this._show = false;
-  //   }, 3000);
-  // }
-
-  // private getNotificationColor(type: NotificationType): string {
-  //   const colors: Record<NotificationType, string> = {
-  //     success: '#8BC34A',
-  //     error: '#F44336',
-  //   }
-  //   return colors[type];
-  // }
 
   /**
    * @description
@@ -68,15 +49,6 @@ export class NotificationService {
    * @returns
    */
   public showSuccess(message: string) {
-    // if (this._show) {
-    //   return;
-    // }
-    // this._show = true;
-    // this._color = '#8BC34A';
-    // this._message = message;
-    // setTimeout(() => {
-    //   this._show = false;
-    // }, 3000);
     this.showNotification({ message, type: 'success' });
   }
 
@@ -88,15 +60,6 @@ export class NotificationService {
    * @returns
    */
   public showError(message: string) {
-    // if (this._show) {
-    //   return;
-    // }
-    // this._show = true;
-    // this._color = '#F44336';
-    // this._message = message;
-    // setTimeout(() => {
-    //   this._show = false;
-    // }, 3000);
     this.showNotification({ message, type: 'error' });
   }
 }

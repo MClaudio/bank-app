@@ -3,8 +3,6 @@
     <input (change)="onSearch()" [(ngModel)]="search" type="search" name="search" id="search" placeholder="Buscar..."
       aria-label="Buscar producto" />
   </div>
-
-  <!-- <a [routerLink]="['new']" class="p-1" role="button" tabindex="0">Agregar</a> -->
   <button [routerLink]="['new']" class="btn btn--primary" aria-label="Agregar un nuevo producto">Agregar</button>
 </div>
 
@@ -47,32 +45,6 @@
         <td class="table__cell">{{ product.date_revision | date : "M/d/yyyy" }}</td>
         <td class="table__cell" *ngIf="product.id">
           <app-float-button [product]="product" [products]="products"></app-float-button>
-
-
-          <!-- <div class="float-btn__container">
-            <button class="float-btn__button" type="button" [attr.aria-expanded]="dropdownStates[product.id] || false"
-              [attr.aria-haspopup]="true" [attr.aria-controls]="'dropdown-menu-' + product.id"
-              [attr.aria-label]="'Opciones para ' + product.name" (click)="toggleDropdown(product.id)"
-              (keydown)="onDropdownKeydown($event, product.id)">
-              •••
-            </button>
-            <div class="float-btn__menu" [ngClass]="{'float-btn__menu--show': dropdownStates[product.id]}" role="menu"
-              [attr.id]="'dropdown-menu-' + product.id" [attr.aria-labelledby]="'dropdown-button-' + product.id">
-              <a class="float-btn__menu-item" [routerLink]="['view', product.id]" role="menuitem" tabindex="0"
-                (keydown)="onMenuItemKeydown($event, 0, product.id)"
-                [attr.aria-label]="'Ver detalles de ' + product.name">
-                Vista
-              </a>
-              <a class="float-btn__menu-item" [routerLink]="['edit', product.id]" role="menuitem" tabindex="0"
-                (keydown)="onMenuItemKeydown($event, 1, product.id)" [attr.aria-label]="'Editar ' + product.name">
-                Editar
-              </a>
-              <a class="float-btn__menu-item" (click)="deleteProduct(product)" role="menuitem" tabindex="0"
-                (keydown)="onMenuItemKeydown($event, 2, product.id)" [attr.aria-label]="'Eliminar ' + product.name">
-                Eliminar
-              </a>
-            </div>
-          </div> -->
         </td>
       </tr>
     </tbody>

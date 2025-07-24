@@ -85,36 +85,7 @@ export class FormProductComponent {
   public async onSaveForm() {
     this.submit.emit(this.form.getRawValue());
 
-    // this.form.markAllAsTouched();
-    // if (this.form.invalid) return;
-    // let data: Product = {
-    //   ...this.form.getRawValue(),
-    //   date_release: new Date(this.form.get('date_release')?.value)
-    //     .toISOString()
-    //     .split('T')[0],
-    //   date_revision: new Date(this.form.get('date_revision')?.value)
-    //     .toISOString()
-    //     .split('T')[0],
-    // };
-    // if (this.acction === 'new') {
-    //   await this.createProduct(data);
-    //   this._notificationService.showSuccess('Producto creado exitosamente');
-    // } else {
-    //   await this.updateProduct(data);
-    //   this._notificationService.showSuccess(
-    //     'Producto actualizado exitosamente'
-    //   );
-    // }
-    // this._router.navigate(['/product']);
   }
-
-  // private async createProduct(data: Product) {
-  //   let resp = await firstValueFrom(this._productService.createProduct(data));
-  // }
-
-  // private async updateProduct(data: Product) {
-  //   let resp = await firstValueFrom(this._productService.updateProduct(data));
-  // }
 
   /**
    * @description
@@ -124,16 +95,5 @@ export class FormProductComponent {
    */
   public onResetForm() {
     this.reset.emit();
-    // if (this.acction === 'edit') {
-    //   this.form.patchValue({
-    //     name: null,
-    //     description: null,
-    //     logo: null,
-    //     date_release: null,
-    //     date_revision: null,
-    //   });
-    // } else {
-    //   this.form.reset();
-    // }
   }
 }
